@@ -97,3 +97,19 @@ completion_2 = client.beta.chat.completions.parse(
 final_response = completion_2.choices[0].message.parsed
 final_response.temperature
 final_response.response
+
+# Question that doesn't trigger the tool
+# --------------------------------------------------------------
+
+messages = [
+    {"role": "system", "content": system_prompt},
+    {"role": "user", "content": "What is the weather in Tokyo?"},
+]
+
+completion_3 = client.beta.chat.completions.parse(
+    model=os.getenv("AZURE_GPT4O_MINI_DEPLOYMENT"),
+    messages=messages,
+    tools=tools,
+)
+
+completion_3.choices[0].message.content
